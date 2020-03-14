@@ -29,11 +29,11 @@ RSpec.describe FoodsController, type: :controller do
   # Food. As you add validations to Food, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip('Add a hash of attributes valid for your model')
-  }
-
-  let(:invalid_attributes) {
-    skip('Add a hash of attributes invalid for your model')
+    {
+      'name' => 'Nasi Goreng',
+      'description' => 'Nasi yang digoreng',
+      'price' => 20.0
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -49,47 +49,17 @@ RSpec.describe FoodsController, type: :controller do
     end
   end
 
-  describe 'GET #show' do
-    it 'returns a success response' do
-      food = Food.create! valid_attributes
-      get :show, params: {id: food.to_param}, session: valid_session
-      expect(response).to be_successful
-    end
-  end
-
-  # describe 'GET #new' do
-  #   it 'returns a success response' do
-  #     get :new, params: {}, session: valid_session
-  #     expect(response).to be_successful
-  #   end
-  # end
-
-  # describe 'GET #edit' do
-  #   it 'returns a success response' do
-  #     food = Food.create! valid_attributes
-  #     get :edit, params: {id: food.to_param}, session: valid_session
-  #     expect(response).to be_successful
-  #   end
-  # end
-
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new Food' do
         expect {
-          post :create, params: {food: valid_attributes}, session: valid_session
+          post :create, params: { food: valid_attributes }, session: valid_session
         }.to change(Food, :count).by(1)
       end
 
       it 'redirects to the created food' do
-        post :create, params: {food: valid_attributes}, session: valid_session
+        post :create, params: { food: valid_attributes }, session: valid_session
         expect(response).to redirect_to(Food.last)
-      end
-    end
-
-    context 'with invalid params' do
-      it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {food: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
       end
     end
   end
@@ -97,14 +67,20 @@ RSpec.describe FoodsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        skip('Add a hash of attributes valid for your model')
+        {
+          'name' => 'Nasi Goreng',
+          'description' => 'Nasi yang digoreng',
+          'price' => 20.0
+        }
       }
 
       it 'updates the requested food' do
         food = Food.create! valid_attributes
-        put :update, params: {id: food.to_param, food: new_attributes}, session: valid_session
+        put :update, params: { id: food.to_param, food: new_attributes }, session: valid_session
         food.reload
-        skip('Add assertions for updated state')
+        expect(food['name']).to eq(new_attributes['name'])
+        expect(food['description']).to eq(new_attributes['description'])
+        expect(food['price']).to eq(new_attributes['price'])
       end
 
       it 'redirects to the food' do
@@ -113,27 +89,19 @@ RSpec.describe FoodsController, type: :controller do
         expect(response).to redirect_to(food)
       end
     end
-
-    context 'with invalid params' do
-      it "returns a success response (i.e. to display the 'edit' template)" do
-        food = Food.create! valid_attributes
-        put :update, params: {id: food.to_param, food: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
-      end
-    end
   end
 
   describe 'DELETE #destroy' do
     it 'destroys the requested food' do
       food = Food.create! valid_attributes
       expect {
-        delete :destroy, params: {id: food.to_param}, session: valid_session
+        delete :destroy, params: { id: food.to_param }, session: valid_session
       }.to change(Food, :count).by(-1)
     end
 
     it 'redirects to the foods list' do
       food = Food.create! valid_attributes
-      delete :destroy, params: {id: food.to_param}, session: valid_session
+      delete :destroy, params: { id: food.to_param }, session: valid_session
       expect(response).to redirect_to(foods_url)
     end
   end

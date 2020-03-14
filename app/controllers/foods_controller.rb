@@ -7,19 +7,19 @@ class FoodsController < ApplicationController
     @foods = Food.all
   end
 
-  # GET /foods/1
-  # GET /foods/1.json
-  def show
-  end
+  # # GET /foods/1
+  # # GET /foods/1.json
+  # def show
+  # end
 
-  # GET /foods/new
-  def new
-    @food = Food.new
-  end
+  # # GET /foods/new
+  # def new
+  #   @food = Food.new
+  # end
 
-  # GET /foods/1/edit
-  def edit
-  end
+  # # GET /foods/1/edit
+  # def edit
+  # end
 
   # POST /foods
   # POST /foods.json
@@ -61,14 +61,14 @@ class FoodsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_food
-      @food = Food.find(params[:id])
-    end
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_food
+    @food = Food.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def food_params
-      params.require(:food).permit(:name, :description, :price)
-    end
+  # Only allow a list of trusted parameters through.
+  def food_params
+    params.require(:food).permit(:name, :description, :price)
+  end
 end
