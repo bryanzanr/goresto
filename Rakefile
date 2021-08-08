@@ -3,4 +3,12 @@
 
 require_relative 'config/application'
 
+# Disable DB migrations, DB test preparing, etc.
+Rake::Task.tasks.each do |t|
+    if t.name[0,3] == "db:"
+        t.clear
+        t.add_description("!!! Disabled in favor of enterprise design at Acme.")
+    end
+end
+
 Rails.application.load_tasks
