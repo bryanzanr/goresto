@@ -1,6 +1,6 @@
 class CreateWidgets < ActiveRecord::Migration[5.1]
   def change
-    create_table :widgets do |t|
+    create_table :rails_widgets do |t|
       t.string :name
       t.text :description
       t.integer :stock
